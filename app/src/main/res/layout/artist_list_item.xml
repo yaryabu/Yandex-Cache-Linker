@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+    <ImageView
+        android:id="@+id/artistImageView"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#00000000"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Small Text"
+        android:id="@+id/artistNameLabel"
+        android:layout_toRightOf="@+id/artistImageView"
+        android:layout_toEndOf="@+id/artistImageView"
+        android:layout_marginLeft="16dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Small Text"
+        android:id="@+id/artistGenresLabel"
+        android:layout_below="@+id/artistNameLabel"
+        android:layout_toRightOf="@+id/artistImageView"
+        android:layout_toEndOf="@+id/artistImageView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Small Text"
+        android:id="@+id/artistTracksAndAlbumsLabel"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/artistImageView"
+        android:layout_toEndOf="@+id/artistImageView"/>
+
+
+</RelativeLayout>

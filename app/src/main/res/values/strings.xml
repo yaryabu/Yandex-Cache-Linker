@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Yandex-Cache-Linker</string>
+    <string name="mainActivityTitle">Исполнители</string>
+    <string formatted="false" name="artistsListTracksAndAlbumsTemplate">%d альбомов, %d треков</string>
+</resources>
