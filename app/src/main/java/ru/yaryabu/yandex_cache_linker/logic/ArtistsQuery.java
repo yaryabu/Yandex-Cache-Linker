@@ -25,9 +25,6 @@ public class ArtistsQuery {
 
     private static final String TAG = ArtistsQuery.class.getSimpleName();
 
-    private static final String ARTISTS_URL
-            = "http://cache-default01f.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
-
     public static ArrayList<Artist> getCached() {
         Realm realm = SharedRealm.uiThreadRealm;
 
@@ -45,7 +42,7 @@ public class ArtistsQuery {
 
         OkHttpClient client = new OkHttpClient();
         Request req = new Request.Builder()
-                .url(ARTISTS_URL)
+                .url(Const.ARTISTS_URL)
                 .build();
         Call call = client.newCall(req);
         call.enqueue(new Callback() {
@@ -67,7 +64,7 @@ public class ArtistsQuery {
                     String jsonString = response.body().string();
                     final ArrayList<Artist> artists = Artist.artistsForJsonString(jsonString);
 
-                    //FIXME: нужно также чистить из realm старых Artists
+                    //FIXME: нужно также чистить из realm старых Artists, но сейчас их не бывает
                     final Realm realm = Realm.getDefaultInstance();
                     realm.beginTransaction();
                     realm.copyToRealmOrUpdate(artists);

@@ -1,5 +1,7 @@
 package ru.yaryabu.yandex_cache_linker.ui;
 
+import android.os.Parcelable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,13 +26,24 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.artistsRecyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.artistListSwipeRefreshLayout) SwipeRefreshLayout mSwipeRefreshLayout;
     private ArtistAdapter mAdapter;
+
+    private static final String LIST_STATE_KEY = "LIST_STATE_KEY";
+    private Parcelable mListState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
 
         configureRealmOnLaunch();
         configureRecycleViewOnLaunch();
@@ -39,20 +52,26 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ArtistAdapter(MainActivity.this, artists);
         mRecyclerView.setAdapter(mAdapter);
 
+        refresh();
+
+        System.out.println("END");
+    }
+
+    private void refresh() {
         ArtistsQuery.getNew(this, new ArtistQueryCallback() {
             @Override
             public void onFailure(Error error) {
                 handleError(error);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onResponse(ArrayList<Artist> artists) {
                 System.out.println("NET");
                 mAdapter.swap(artists);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
-        System.out.println("END");
     }
 
     private void handleError(Error error) {
@@ -73,5 +92,29 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         mRecyclerView.setHasFixedSize(true);
+    }
+
+    // методы ниже отвечают за сохранение позиции RecyclerView при возвращении с другой Activity
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        mListState = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        state.putParcelable(LIST_STATE_KEY, mListState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        if(state != null)
+            mListState = state.getParcelable(LIST_STATE_KEY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mListState != null) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
+        }
     }
 }

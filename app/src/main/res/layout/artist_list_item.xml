@@ -4,7 +4,7 @@
                 android:layout_height="90dp">
 
     <ImageView
-        android:id="@+id/artistImageView"
+        android:id="@+id/artistListImageView"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -18,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Small Text"
-        android:id="@+id/artistNameLabel"
-        android:layout_toRightOf="@+id/artistImageView"
-        android:layout_toEndOf="@+id/artistImageView"
+        android:id="@+id/artistListNameLabel"
+        android:layout_toRightOf="@+id/artistListImageView"
+        android:layout_toEndOf="@+id/artistListImageView"
         android:layout_marginLeft="16dp"
         />
 
@@ -28,19 +28,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Small Text"
-        android:id="@+id/artistGenresLabel"
-        android:layout_below="@+id/artistNameLabel"
-        android:layout_toRightOf="@+id/artistImageView"
-        android:layout_toEndOf="@+id/artistImageView"/>
+        android:id="@+id/artistListGenresLabel"
+        android:layout_below="@+id/artistListNameLabel"
+        android:layout_toRightOf="@+id/artistListImageView"
+        android:layout_toEndOf="@+id/artistListImageView"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Small Text"
-        android:id="@+id/artistTracksAndAlbumsLabel"
+        android:id="@+id/artistListTracksAndAlbumsLabel"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/artistImageView"
-        android:layout_toEndOf="@+id/artistImageView"/>
+        android:layout_toRightOf="@+id/artistListImageView"
+        android:layout_toEndOf="@+id/artistListImageView"/>
 
 
 </RelativeLayout>

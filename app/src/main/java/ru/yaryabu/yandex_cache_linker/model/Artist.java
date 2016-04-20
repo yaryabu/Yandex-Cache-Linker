@@ -5,10 +5,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import ru.yaryabu.yandex_cache_linker.logic.Const;
 
 
 public class Artist extends RealmObject {
@@ -37,37 +39,6 @@ public class Artist extends RealmObject {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-//            Artist artist = new Artist();
-//            artist.setId(jObj.getLong("id"));
-//            artist.setName(jObj.getString("name"));
-//
-//            JSONArray genresArray = jObj.getJSONArray("genres");
-//
-//            String genresFormattedString = "";
-//            for (int x = 0; x < genresArray.length(); x++) {
-//                String genreFormat = genresArray.getString(x) + ", ";
-//
-//                genresFormattedString += genreFormat;
-//            }
-//            if (genresArray.length() > 0) {
-//                genresFormattedString = genresFormattedString.substring(0, genresFormattedString.length() - 2);
-//            }
-//
-//            artist.setGenresFormattedString(genresFormattedString);
-//
-//            artist.setTracksCount(jObj.getInt("tracks"));
-//            artist.setAlbumsCount(jObj.getInt("albums"));
-//            artist.setDescription(jObj.getString("description"));
-//            artist.setSmallCoverUrlString(jObj.getJSONObject("cover").getString("small"));
-//            artist.setBigCoverUrlString(jObj.getJSONObject("cover").getString("big"));
-//            // link - необязательный параметр. Есть не у всех объектов.
-//            try {
-//                artist.setLink(jObj.getString("link"));
-//            } catch (JSONException e) {
-//                artist.setLink(null);
-//            }
-//
-//            artists.add(artist);
         }
 
         return artists;
@@ -180,6 +151,6 @@ public class Artist extends RealmObject {
     }
 
     public String getYandexMusicRedirectLink() {
-        return "https://music.yandex.ru/artist/" + getId();
+        return Const.YANDEX_MUSIC_REDIRECT_PATH + getId();
     }
 }
