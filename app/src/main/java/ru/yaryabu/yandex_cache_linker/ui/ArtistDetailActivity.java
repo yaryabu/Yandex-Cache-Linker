@@ -1,11 +1,13 @@
 package ru.yaryabu.yandex_cache_linker.ui;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +28,7 @@ import ru.yaryabu.yandex_cache_linker.model.Artist;
 public class ArtistDetailActivity extends AppCompatActivity {
 
     private Artist mArtist;
-    private static final int IMAGE_HEIGHT = 600;
+    private static final int IMAGE_HEIGHT_PX = (int) (230 * Resources.getSystem().getDisplayMetrics().density);
 
     @Bind(R.id.artistDetailImageView) ImageView mArtistImageView;
     @Bind(R.id.artistDetailGenresLabel) TextView mGenresLabel;
@@ -48,14 +50,14 @@ public class ArtistDetailActivity extends AppCompatActivity {
         mArtist = realm.where(Artist.class).equalTo("mId", artistId).findFirst();
         setTitle(mArtist.getName());
 
-        Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        getWindowManager().getDefaultDisplay().getSize(size);
         int width = size.x;
+
 
         Picasso.with(this)
                 .load(mArtist.getBigCoverUrlString())
-                .resize(width, IMAGE_HEIGHT)
+                .resize(width, IMAGE_HEIGHT_PX)
                 .centerCrop()
                 .into(mArtistImageView);
         mGenresLabel.setText(mArtist.getGenresFormattedString());
@@ -76,7 +78,7 @@ public class ArtistDetailActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.artistDetailYandexMusicFab)
-    public void yandexMusicFabClickes() {
+    public void yandexMusicFabClicked() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mArtist.getYandexMusicRedirectLink()));
         startActivity(browserIntent);
     }
