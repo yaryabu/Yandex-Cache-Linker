@@ -7,8 +7,6 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +33,9 @@ public class ArtistDetailActivity extends AppCompatActivity {
     @Bind(R.id.artistDetailAlbumsAndTracksLabel) TextView mAlbumsAndTracksLabel;
     @Bind(R.id.artistDetailDescriptionLabel) TextView mDescriptionLabel;
     @Bind(R.id.artistDetailLinkButton) Button mLinkButton;
+    @Bind(R.id.artistDetailTopLinkSeparator) View mTopLinkSeparator;
+    @Bind(R.id.artistDetailBottomLinkSeparator) View mBottomLinkSeparator;
+
     @Bind(R.id.artistDetailYandexMusicFab) FloatingActionButton mYandexMusicFab;
 
 
@@ -61,13 +62,20 @@ public class ArtistDetailActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(mArtistImageView);
         mGenresLabel.setText(mArtist.getGenresFormattedString());
-        String aaa =  String.format(getString(R.string.artistDetailAlbumsAndTracksTemplate), mArtist.getAlbumsCount(), mArtist.getTracksCount());
-        mAlbumsAndTracksLabel.setText(aaa);
+
+        String albumsAndTracks =  String.format(
+                getString(R.string.artistDetailAlbumsAndTracksTemplate),
+                mArtist.getAlbumsCount(),
+                mArtist.getTracksCount()
+        );
+        mAlbumsAndTracksLabel.setText(albumsAndTracks);
         mDescriptionLabel.setText(mArtist.getDescription());
         if (mArtist.getLink() != null) {
             mLinkButton.setText(mArtist.getLink());
         } else {
             mLinkButton.setVisibility(View.GONE);
+            mTopLinkSeparator.setVisibility(View.GONE);
+            mBottomLinkSeparator.setVisibility(View.GONE);
         }
     }
 

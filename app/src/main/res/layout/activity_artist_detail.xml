@@ -2,9 +2,10 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffffff"
     tools:context="ru.yaryabu.yandex_cache_linker.ui.ArtistDetailActivity">
 
     <ScrollView
@@ -33,34 +34,64 @@
                 android:layout_height="wrap_content"
                 android:text="genres"
                 android:id="@+id/artistDetailGenresLabel"
-                />
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="#ffB3B3B3"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="albums and tracks label"
                 android:id="@+id/artistDetailAlbumsAndTracksLabel"
-                />
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="14sp"
+                android:textColor="#ffB3B3B3"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Биография"
                 android:id="@+id/artistDetailBiographyLabel"
-                />
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="19dp"
+                android:textColor="#ff000000"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="description"
+                android:lineSpacingExtra="9sp"
                 android:id="@+id/artistDetailDescriptionLabel"
-                android:textSize="50sp"/>
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="40dp"
+                android:textSize="14sp"
+                android:textColor="#ff000000"/>
+
+            <View android:id="@+id/artistDetailTopLinkSeparator"
+                  android:background="#ff000000"
+                  android:layout_width = "fill_parent"
+                  android:layout_height="1dp"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:text="New Button"
-                android:id="@+id/artistDetailLinkButton"/>
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/artistDetailLinkButton"
+                android:textSize="14sp"
+                android:background="#00000000"
+                android:layout_marginLeft="16dp"
+                />
+
+            <View android:id="@+id/artistDetailBottomLinkSeparator"
+                  android:background="#ff000000"
+                  android:layout_width = "fill_parent"
+                  android:layout_height="1dp"/>
 
         </LinearLayout>
     </ScrollView>
@@ -69,9 +100,13 @@
         android:id="@+id/artistDetailYandexMusicFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        android:background="#00000000"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_launcher"
+        android:scaleType="center"
+        android:src="@drawable/ya_music_icon"
         app:layout_anchor="@id/artistDetailImageView"
         app:layout_anchorGravity="bottom|right|end"/>
 
