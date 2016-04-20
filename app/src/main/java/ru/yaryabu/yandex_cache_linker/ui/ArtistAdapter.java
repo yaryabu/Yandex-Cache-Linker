@@ -19,6 +19,8 @@ import ru.yaryabu.yandex_cache_linker.model.Artist;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder> {
 
+    public static final String ARTIST_EXTRA = "ARTIST_EXTRA";
+
     private Context mContext;
     private ArrayList<Artist> mArtists;
 
@@ -58,14 +60,15 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         public TextView artistGenresLabel;
         public TextView artistTracksAndAlbumsLabel;
         private String mYandexMusicRedirectUrl;
+        private long mArtistId;
 
         public ArtistViewHolder(View itemView) {
             super(itemView);
 
-            artistImageView = (ImageView) itemView.findViewById(R.id.artistImageView);
-            artistNameLabel = (TextView) itemView.findViewById(R.id.artistNameLabel);
-            artistGenresLabel = (TextView) itemView.findViewById(R.id.artistGenresLabel);
-            artistTracksAndAlbumsLabel = (TextView) itemView.findViewById(R.id.artistTracksAndAlbumsLabel);
+            artistImageView = (ImageView) itemView.findViewById(R.id.artistListImageView);
+            artistNameLabel = (TextView) itemView.findViewById(R.id.artistListNameLabel);
+            artistGenresLabel = (TextView) itemView.findViewById(R.id.artistListGenresLabel);
+            artistTracksAndAlbumsLabel = (TextView) itemView.findViewById(R.id.artistListTracksAndAlbumsLabel);
 
             itemView.setOnClickListener(this);
         }
@@ -85,13 +88,17 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
                     );
             artistTracksAndAlbumsLabel.setText(tracksAndAlbumsFormattedString);
 
-            mYandexMusicRedirectUrl = artist.getYandexMusicRedirectLink();
+//            mYandexMusicRedirectUrl = artist.getYandexMusicRedirectLink();
+            mArtistId = artist.getId();
         }
 
         @Override
         public void onClick(View v) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mYandexMusicRedirectUrl));
-            mContext.startActivity(browserIntent);
+            Intent intent = new Intent(mContext, ArtistDetailActivity.class);
+            intent.putExtra(ARTIST_EXTRA, mArtistId);
+            mContext.startActivity(intent);
+//            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mYandexMusicRedirectUrl));
+//            mContext.startActivity(browserIntent);
         }
     }
 
