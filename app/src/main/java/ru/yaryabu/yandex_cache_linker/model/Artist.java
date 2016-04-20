@@ -26,44 +26,85 @@ public class Artist extends RealmObject {
     private String mLink;
 
     public static ArrayList<Artist> artistsForJsonString(String jsonString) throws JSONException {
+
         JSONArray jArray = new JSONArray(jsonString);
+
         final ArrayList<Artist> artists = new ArrayList<>();
         for (int i = 0; i < jArray.length(); i++) {
-            JSONObject jObj = jArray.getJSONObject(i);
-            Artist artist = new Artist();
-            artist.setId(jObj.getLong("id"));
-            artist.setName(jObj.getString("name"));
-
-            JSONArray genresArray = jObj.getJSONArray("genres");
-
-            String genresFormattedString = "";
-            for (int x = 0; x < genresArray.length(); x++) {
-                String genreFormat = genresArray.getString(x) + ", ";
-
-                genresFormattedString += genreFormat;
-            }
-            if (genresArray.length() > 0) {
-                genresFormattedString = genresFormattedString.substring(0, genresFormattedString.length() - 2);
-            }
-
-            artist.setGenresFormattedString(genresFormattedString);
-
-            artist.setTracksCount(jObj.getInt("tracks"));
-            artist.setAlbumsCount(jObj.getInt("albums"));
-            artist.setDescription(jObj.getString("description"));
-            artist.setSmallCoverUrlString(jObj.getJSONObject("cover").getString("small"));
-            artist.setBigCoverUrlString(jObj.getJSONObject("cover").getString("big"));
-            // link - необязательный параметр. Есть не у всех объектов.
             try {
-                artist.setLink(jObj.getString("link"));
+                JSONObject jObject = jArray.getJSONObject(i);
+                artists.add(artistForJsonObject(jObject));
             } catch (JSONException e) {
-                artist.setLink(null);
+                e.printStackTrace();
             }
-
-            artists.add(artist);
+//            Artist artist = new Artist();
+//            artist.setId(jObj.getLong("id"));
+//            artist.setName(jObj.getString("name"));
+//
+//            JSONArray genresArray = jObj.getJSONArray("genres");
+//
+//            String genresFormattedString = "";
+//            for (int x = 0; x < genresArray.length(); x++) {
+//                String genreFormat = genresArray.getString(x) + ", ";
+//
+//                genresFormattedString += genreFormat;
+//            }
+//            if (genresArray.length() > 0) {
+//                genresFormattedString = genresFormattedString.substring(0, genresFormattedString.length() - 2);
+//            }
+//
+//            artist.setGenresFormattedString(genresFormattedString);
+//
+//            artist.setTracksCount(jObj.getInt("tracks"));
+//            artist.setAlbumsCount(jObj.getInt("albums"));
+//            artist.setDescription(jObj.getString("description"));
+//            artist.setSmallCoverUrlString(jObj.getJSONObject("cover").getString("small"));
+//            artist.setBigCoverUrlString(jObj.getJSONObject("cover").getString("big"));
+//            // link - необязательный параметр. Есть не у всех объектов.
+//            try {
+//                artist.setLink(jObj.getString("link"));
+//            } catch (JSONException e) {
+//                artist.setLink(null);
+//            }
+//
+//            artists.add(artist);
         }
 
         return artists;
+    }
+
+    private static Artist artistForJsonObject(JSONObject object) throws JSONException {
+        Artist artist = new Artist();
+        artist.setId(object.getLong("id"));
+        artist.setName(object.getString("name"));
+
+        JSONArray genresArray = object.getJSONArray("genres");
+
+        String genresFormattedString = "";
+        for (int x = 0; x < genresArray.length(); x++) {
+            String genreFormat = genresArray.getString(x) + ", ";
+
+            genresFormattedString += genreFormat;
+        }
+        if (genresArray.length() > 0) {
+            genresFormattedString = genresFormattedString.substring(0, genresFormattedString.length() - 2);
+        }
+
+        artist.setGenresFormattedString(genresFormattedString);
+
+        artist.setTracksCount(object.getInt("tracks"));
+        artist.setAlbumsCount(object.getInt("albums"));
+        artist.setDescription(object.getString("description"));
+        artist.setSmallCoverUrlString(object.getJSONObject("cover").getString("small"));
+        artist.setBigCoverUrlString(object.getJSONObject("cover").getString("big"));
+        // link - необязательный параметр. Есть не у всех объектов.
+        try {
+            artist.setLink(object.getString("link"));
+        } catch (JSONException e) {
+            artist.setLink(null);
+        }
+
+        return artist;
     }
 
     public long getId() {
