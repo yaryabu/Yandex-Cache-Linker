@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         refresh();
-
-        System.out.println("END");
     }
 
     private void refresh() {
@@ -68,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(ArrayList<Artist> artists) {
-                System.out.println("NET");
                 mAdapter.swap(artists);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
@@ -76,8 +73,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleError(Error error) {
-        //FIXME: обработка ошибок
-        Toast.makeText(this, error.toString(), Toast.LENGTH_SHORT).show();
+        String errorText = "";
+        switch (error) {
+            case unknownError:
+                errorText = "Неизвестная ошибка";
+            case networkConnectionError:
+                errorText = "Ошибка соединения с сервером";
+        }
+        Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
     }
 
     private void configureRealmOnLaunch() {
