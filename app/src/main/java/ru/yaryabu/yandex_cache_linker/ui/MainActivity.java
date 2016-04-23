@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setTitle(R.string.mainActivityTitle);
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -73,13 +74,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleError(Error error) {
-        String errorText = "";
+        String errorText;
         switch (error) {
-            case unknownError:
-                errorText = "Неизвестная ошибка";
             case networkConnectionError:
                 errorText = "Ошибка соединения с сервером";
+                break;
+            default:
+                errorText = "Неизвестная ошибка";
+                break;
         }
+        System.out.println("ERROR " + errorText + " " + error.toString());
         Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
     }
 

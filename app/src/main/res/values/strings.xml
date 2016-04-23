@@ -3,4 +3,5 @@
     <string name="mainActivityTitle">Исполнители</string>
     <string name="artistsListTracksAndAlbumsTemplate" formatted="false">%d альбомов, %d треков</string>
     <string name="artistDetailAlbumsAndTracksTemplate" formatted="false">%d альбомов · %d песен</string>
+    <string name="appName">Яндекс.Кэш</string>
 </resources>

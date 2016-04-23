@@ -44,6 +44,7 @@ public class Artist extends RealmObject {
         return artists;
     }
 
+    // объекты парсятся отдельно, чтобы не ломать все, если сломается только один
     private static Artist artistForJsonObject(JSONObject object) throws JSONException {
         Artist artist = new Artist();
         artist.setId(object.getLong("id"));
