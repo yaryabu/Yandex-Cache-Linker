@@ -1,9 +1,9 @@
 package ru.yaryabu.yandex_cache_linker.ui;
 
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import ru.yaryabu.yandex_cache_linker.R;
 import ru.yaryabu.yandex_cache_linker.logic.ArtistQueryCallback;
 import ru.yaryabu.yandex_cache_linker.logic.ArtistsQuery;
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        configureRealmOnLaunch();
+        SharedRealm.configureRealmOnLaunch(this);
         configureRecycleViewOnLaunch();
 
         ArrayList<Artist> artists = ArtistsQuery.getCached();
@@ -83,16 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 errorText = "Неизвестная ошибка";
                 break;
         }
-        System.out.println("ERROR " + errorText + " " + error.toString());
         Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-    }
-
-    private void configureRealmOnLaunch() {
-        RealmConfiguration config = new RealmConfiguration.Builder(this)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
-        SharedRealm.uiThreadRealm = Realm.getDefaultInstance();
     }
 
     private void configureRecycleViewOnLaunch() {

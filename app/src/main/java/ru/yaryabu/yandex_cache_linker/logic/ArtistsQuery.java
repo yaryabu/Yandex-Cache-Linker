@@ -3,7 +3,6 @@ package ru.yaryabu.yandex_cache_linker.logic;
 import android.app.Activity;
 import android.util.Log;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 

@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +46,6 @@ public class ArtistDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         long artistId = getIntent().getLongExtra(ArtistAdapter.ARTIST_EXTRA, -1);
-        System.out.println("ID " + artistId);
         Realm realm = SharedRealm.uiThreadRealm;
         mArtist = realm.where(Artist.class).equalTo("mId", artistId).findFirst();
         setTitle(mArtist.getName());

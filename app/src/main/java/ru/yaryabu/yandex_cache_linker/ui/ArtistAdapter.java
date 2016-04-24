@@ -2,7 +2,6 @@ package ru.yaryabu.yandex_cache_linker.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +58,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
         public TextView artistNameLabel;
         public TextView artistGenresLabel;
         public TextView artistTracksAndAlbumsLabel;
-        private String mYandexMusicRedirectUrl;
         private long mArtistId;
 
         public ArtistViewHolder(View itemView) {
@@ -88,7 +86,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
                     );
             artistTracksAndAlbumsLabel.setText(tracksAndAlbumsFormattedString);
 
-//            mYandexMusicRedirectUrl = artist.getYandexMusicRedirectLink();
             mArtistId = artist.getId();
         }
 
@@ -97,8 +94,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
             Intent intent = new Intent(mContext, ArtistDetailActivity.class);
             intent.putExtra(ARTIST_EXTRA, mArtistId);
             mContext.startActivity(intent);
-//            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mYandexMusicRedirectUrl));
-//            mContext.startActivity(browserIntent);
         }
     }
 
